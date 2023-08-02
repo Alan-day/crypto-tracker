@@ -1,10 +1,15 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-const Pageswitch = () => {
+const Pageswitch = ({ handleStockChange, handleCryptoChange }) => {
   return (
     <div className="pageswitch-container">
-      <button className="pageswitch-container__button">Cryptocurrency</button>
-      <button className="pageswitch-container__button">Stocks</button>
+      <Link to="/crypto">
+        <button className="pageswitch-container__button">Cryptocurrency</button>
+      </Link>
+      <Link to="/">
+        <button className="pageswitch-container__button">Stocks</button>
+      </Link>
     </div>
   );
 };

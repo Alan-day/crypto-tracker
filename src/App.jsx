@@ -1,4 +1,4 @@
-import "./App.css";
+import "./App.scss";
 import { useState } from "react";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import Pageswitch from "./Pageswitch/Pageswitch";

@@ -18,13 +18,13 @@ chartjs.register(
   Legend
 );
 
-const Graph = () => {
-  const data = {
-    labels: ["Monday", "Tuesday", "Wednesday"],
+const Graph = ({ data }) => {
+  const dataset = {
+    labels: data.labels,
     datasets: [
       {
-        label: "sales of the week",
-        data: [3, 6, 9],
+        label: data.label,
+        data: data.sales,
         backgroundColor: "aqua",
         borderColor: "black",
         pointBorderColor: "aqua",
@@ -38,11 +38,10 @@ const Graph = () => {
     plugins: {
       legend: true,
     },
-
     scales: {
       y: {
-        min: 3,
-        max: 6,
+        min: data.minValue,
+        max: data.maxValue,
       },
     },
   };
@@ -50,7 +49,7 @@ const Graph = () => {
   return (
     <>
       <div className="graph-container">
-        <Line data={data} options={options}></Line>
+        <Line data={dataset} options={options}></Line>
       </div>
     </>
   );

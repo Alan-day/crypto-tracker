@@ -4,10 +4,10 @@ import "./Stockpage.scss"
 
 
 
-const Stockpage = () => {
+const Stockpage = ({apiData}) => {
   return <div>Stockpage
 
-  <Graph />;
+  <Graph data={apiData} />;
   </div>;
 };
 

@@ -1,9 +1,29 @@
-import React from 'react'
+import React from "react";
+import Graph from "../../Graph/Graph";
 
-const CryptoPage = () => {
+const CryptoPage = ({ data }) => {
+  const dataset = {
+    labels: data.cryptoLabels,
+    datasets: [
+      {
+        label: data.cryptoLabels,
+        data: data.cryptoValues,
+        backgroundColor: "aqua",
+        borderColor: "black",
+        pointBorderColor: "aqua",
+        fill: true,
+        tension: 0.4,
+      },
+    ],
+  };
+
   return (
-    <div>CryptoPage</div>
-  )
-}
+    <>
+      <Graph data={data} dataset={dataset} />
 
-export default CryptoPage
+      <div>CryptoPage</div>
+    </>
+  );
+};
+
+export default CryptoPage;

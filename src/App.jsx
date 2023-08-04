@@ -8,6 +8,7 @@ import StockData from "./StockData";
 import Navbar from "./Navbar/Navbar";
 import Sidebar from "./Sidebar/Sidebar";
 import data from "./data.json";
+import crypto from "./cryptoData.json";
 function App() {
   const [stockData, setStockData] = useState("");
   const [ibmInfo, setIbm] = useState("");
@@ -16,6 +17,8 @@ function App() {
   const [teslaInfo, setTesla] = useState("");
   const [microsoftInfo, setMicrosoft] = useState("");
   const [appleInfo, setApple] = useState("");
+
+  console.log(crypto);
 
   const timeSeriesArrayToday = Object.entries(data["Time Series (Daily)"])
     .map(([date, values]) => ({
@@ -41,16 +44,49 @@ function App() {
     .slice(0, 2);
 
   const labels = timeSeriesArray.map((dataPoint) => dataPoint.date);
-  const sales = timeSeriesArray.map((dataPoint) => dataPoint["4. close"]);
+  const values = timeSeriesArray.map((dataPoint) => dataPoint["4. close"]);
   const maxValue = timeSeriesArrayToday["2. high"];
   const minValue = timeSeriesArrayToday["3. low"];
+
+  const cryptoTimeSeriesArrayToday = Object.entries(
+    crypto["Time Series (Digital Currency Daily)"]
+  )
+    .map(([date, values]) => ({
+      date,
+      ...values,
+    }))
+    .slice(0, 1);
+
+  const cryptoTimeSeriesArray = Object.entries(
+    crypto["Time Series (Digital Currency Daily)"]
+  )
+    .map(([date, values]) => ({
+      date,
+      ...values,
+    }))
+    .slice(0, 7);
+  console.log(cryptoTimeSeriesArray);
+  const cryptoLabels = cryptoTimeSeriesArray.map((dataPoint) => dataPoint.date);
+  const cryptoValues = cryptoTimeSeriesArray.map(
+    (dataPoint) => dataPoint["4a. close (GBP)"]
+  );
+  const cryptoMaxValue = cryptoTimeSeriesArrayToday["2a. high (GBP)"];
+  const cryptoMinValue = cryptoTimeSeriesArrayToday["3a. low (GBP)"];
 
   const apiData = {
     labels,
     label,
-    sales,
+    values,
     minValue,
     maxValue,
+  };
+
+  const cryptoApiData = {
+    cryptoLabels,
+    label,
+    cryptoValues,
+    cryptoMinValue,
+    cryptoMaxValue,
   };
 
   const APIdata = async () => {
@@ -60,8 +96,6 @@ function App() {
     setStockData(stock);
   };
 
-  console.log(stockData);
-  console.log(ibmInfo);
   const appleData = async () => {
     const url = `https://www.alphavantage.co./query?function=TIME_SERIES_DAILY&symbol=AAPL&apikey=${process.env.REACT_APP_API_KEY}`;
     const response = await fetch(url);
@@ -103,9 +137,8 @@ function App() {
     const stock = await response.json();
     setTesla(stock);
   };
-  useEffect(() => {
-  
-  }, []);
+  useEffect(() => {}, []);
+
   // const ibm = Object.entries(ibmData["Time Series (Daily)"])
   //   .map(([date, values]) => ({
   //     date,
@@ -122,7 +155,7 @@ function App() {
 
         <Sidebar />
         <Routes>
-          <Route path="/crypto" element={<CryptoPage />} />
+          <Route path="/crypto" element={<CryptoPage data={cryptoApiData} />} />
           <Route path="/" element={<Stockpage data={apiData} />} />
         </Routes>
       </div>

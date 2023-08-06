@@ -9,6 +9,7 @@ import Navbar from "./Navbar/Navbar";
 
 import data from "./data.json";
 import crypto from "./cryptoData.json";
+import Searchbar from "./Searchbar/Searchbar";
 function App() {
   const [stockData, setStockData] = useState("");
   const [ibmInfo, setIbm] = useState("");
@@ -146,14 +147,22 @@ function App() {
   //   }))
   //   .slice(0, 1);
 
+  const handleUserInput = (event) => {
+
+
+
+
+  };
+
   return (
     <Router>
       <div className="App">
-        <h1>_nology trader</h1>
         <Navbar />
+
+        <h1>_nology trader</h1>
+
         <Pageswitch />
 
-   
         <Routes>
           <Route path="/crypto" element={<CryptoPage data={cryptoApiData} />} />
           <Route path="/" element={<Stockpage data={apiData} />} />

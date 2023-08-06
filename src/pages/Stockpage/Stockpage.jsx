@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import Graph from "../../Graph/Graph";
 import "./Stockpage.scss";
 import Sidebar from "./../../Sidebar/Sidebar";
 import sidebarData from "./../../data.json";
+import Searchbar from "../../Searchbar/Searchbar";
 
 const Stockpage = ({ data }) => {
+  const [searchPhrase, setSearchPhrase] = useState("");
+
 
   const isStock = true;
+
   const dataset = {
     labels: data.labels,
     datasets: [
@@ -22,6 +26,9 @@ const Stockpage = ({ data }) => {
     ],
   };
 
+  const options = [];
+
+ 
   const timeSeriesArrayToday = Object.entries(
     sidebarData["Time Series (Daily)"]
   )
@@ -30,11 +37,28 @@ const Stockpage = ({ data }) => {
       ...values,
     }))
     .slice(0, 1);
-  
+
+
+
+  const resultsData = async () => {
+    const url = `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${searchPhrase}&apikey=${process.env.REACT_APP_API_KEY}`;
+    const response = await fetch(url);
+    const dropdownData = await response.json();
+    // setDropdownValue(dropdownData);
+  };
+
   return (
     <div>
       Stockpage
-      <Sidebar sidebarData={timeSeriesArrayToday} isStock={isStock} />
+      <Searchbar
+
+        options={options}
+      />
+      <Sidebar
+        sidebarData={timeSeriesArrayToday}
+        isStock={isStock}
+        inputValue={searchPhrase}
+      />
       <Graph data={data} dataset={dataset} />;
     </div>
   );

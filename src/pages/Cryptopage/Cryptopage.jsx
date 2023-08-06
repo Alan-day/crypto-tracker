@@ -1,7 +1,11 @@
 import React from "react";
 import Graph from "../../Graph/Graph";
+import Sidebar from "../../Sidebar/Sidebar";
+import sidebarData from "./../../cryptoData.json";
 
 const CryptoPage = ({ data }) => {
+  const isStock = false;
+
   const dataset = {
     labels: data.cryptoLabels,
     datasets: [
@@ -16,11 +20,21 @@ const CryptoPage = ({ data }) => {
       },
     ],
   };
+  const timeSeriesArrayToday = Object.entries(
+    sidebarData["Time Series (Digital Currency Daily)"]
+  )
+    .map(([date, values]) => ({
+      date,
+      ...values,
+    }))
+    .slice(0, 1);
+
+  console.log(timeSeriesArrayToday);
 
   return (
     <>
       <Graph data={data} dataset={dataset} />
-
+      <Sidebar sidebarData={timeSeriesArrayToday} isStock={isStock} />
       <div>CryptoPage</div>
     </>
   );

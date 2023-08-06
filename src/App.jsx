@@ -6,7 +6,7 @@ import CryptoPage from "./pages/Cryptopage/CryptoPage";
 import Stockpage from "./pages/Stockpage/Stockpage";
 import StockData from "./StockData";
 import Navbar from "./Navbar/Navbar";
-import Sidebar from "./Sidebar/Sidebar";
+
 import data from "./data.json";
 import crypto from "./cryptoData.json";
 function App() {
@@ -65,7 +65,7 @@ function App() {
       ...values,
     }))
     .slice(0, 7);
-  console.log(cryptoTimeSeriesArray);
+
   const cryptoLabels = cryptoTimeSeriesArray.map((dataPoint) => dataPoint.date);
   const cryptoValues = cryptoTimeSeriesArray.map(
     (dataPoint) => dataPoint["4a. close (GBP)"]
@@ -153,7 +153,7 @@ function App() {
         <Navbar />
         <Pageswitch />
 
-        <Sidebar />
+   
         <Routes>
           <Route path="/crypto" element={<CryptoPage data={cryptoApiData} />} />
           <Route path="/" element={<Stockpage data={apiData} />} />

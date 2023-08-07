@@ -7,51 +7,17 @@ import Stockpage from "./pages/Stockpage/Stockpage";
 
 import Navbar from "./Navbar/Navbar";
 
-import crypto from "./cryptoData.json";
 import Searchbar from "./Searchbar/Searchbar";
 
 function App() {
-  const [stockData, setStockData] = useState("");
-  const [ibmInfo, setIbm] = useState("");
-  const [googleInfo, setGoogle] = useState("");
-  const [amazonInfo, setAmazon] = useState("");
-  const [teslaInfo, setTesla] = useState("");
-  const [microsoftInfo, setMicrosoft] = useState("");
-  const [appleInfo, setApple] = useState("");
+  const [stockData, setStockData] = useState("£123.2");
+  const [ibmInfo, setIbm] = useState("£234.5");
+  const [googleInfo, setGoogle] = useState("£4324.4");
+  const [amazonInfo, setAmazon] = useState("£100.5");
+  const [teslaInfo, setTesla] = useState("£3244.6");
+  const [microsoftInfo, setMicrosoft] = useState("£43.5");
+  const [appleInfo, setApple] = useState("£42.4");
   const [stockGraph, setStockGraph] = useState("");
-
-  const cryptoTimeSeriesArrayToday = Object.entries(
-    crypto["Time Series (Digital Currency Daily)"]
-  )
-    .map(([date, values]) => ({
-      date,
-      ...values,
-    }))
-    .slice(0, 1);
-
-  const cryptoTimeSeriesArray = Object.entries(
-    crypto["Time Series (Digital Currency Daily)"]
-  )
-    .map(([date, values]) => ({
-      date,
-      ...values,
-    }))
-    .slice(0, 7);
-
-  const cryptoLabels = cryptoTimeSeriesArray.map((dataPoint) => dataPoint.date);
-  const cryptoValues = cryptoTimeSeriesArray.map(
-    (dataPoint) => dataPoint["4a. close (GBP)"]
-  );
-  const cryptoMaxValue = cryptoTimeSeriesArrayToday["2a. high (GBP)"];
-  const cryptoMinValue = cryptoTimeSeriesArrayToday["3a. low (GBP)"];
-
-  const cryptoApiData = {
-    cryptoLabels,
-    // label,
-    cryptoValues,
-    cryptoMinValue,
-    cryptoMaxValue,
-  };
 
   const APIdata = async () => {
     const url = `https://www.alphavantage.co./query?function=TIME_SERIES_DAILY&symbol=AAPL&apikey=${process.env.REACT_APP_API_KEY}`;
@@ -113,12 +79,19 @@ function App() {
     <Router>
       <div className="App">
         <h1 className="header">_nology trader</h1>
-        <Navbar />
+        <Navbar
+          appleData={appleInfo}
+          teslaData={teslaInfo}
+          ibmData={ibmInfo}
+          microsoftData={microsoftInfo}
+          amazonData={amazonInfo}
+          googleData={googleInfo}
+        />
         <div className="pageswitch">
           <Pageswitch />
         </div>
         <Routes>
-          <Route path="/crypto" element={<CryptoPage data={cryptoApiData} />} />
+          <Route path="/crypto" element={<CryptoPage />} />
           <Route path="/" element={<Stockpage />} />
         </Routes>
       </div>

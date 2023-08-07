@@ -15,12 +15,24 @@ const Navbar = ({
       <div className="navbar-container">
         <nav>
           <ul>
-            <li>APPL:{appleData}</li>
-            <li>IBM:{ibmData}</li>
-            <li>MSFT:{microsoftData}</li>
-            <li>AMZN:{amazonData}</li>
-            <li>GOOGL:{googleData}</li>
-            <li>TESL:{teslaData}</li>
+            <li className="navbar-container--1">APPL: {appleData}</li>
+            <li className="navbar-container--2">IBM: {ibmData}</li>
+            <li className="navbar-container--3">MSFT: {microsoftData}</li>
+            <li className="navbar-container--4">AMZN: {amazonData}</li>
+            <li className="navbar-container--5">GOOGL: {googleData}</li>
+            <li className="navbar-container--6">TESL: {teslaData}</li>
+            <li className="navbar-container--1">APPL: {appleData}</li>
+            <li className="navbar-container--2">IBM: {ibmData}</li>
+            <li className="navbar-container--3">MSFT: {microsoftData}</li>
+            <li className="navbar-container--4">AMZN: {amazonData}</li>
+            <li className="navbar-container--5">GOOGL: {googleData}</li>
+            <li className="navbar-container--6">TESL: {teslaData}</li>
+            <li className="navbar-container--1">APPL: {appleData}</li>
+            <li className="navbar-container--2">IBM: {ibmData}</li>
+            <li className="navbar-container--3">MSFT: {microsoftData}</li>
+            <li className="navbar-container--4">AMZN: {amazonData}</li>
+            <li className="navbar-container--5">GOOGL: {googleData}</li>
+            <li className="navbar-container--6">TESL: {teslaData}</li>
           </ul>
         </nav>
       </div>

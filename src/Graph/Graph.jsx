@@ -19,11 +19,9 @@ chartjs.register(
 );
 
 const Graph = ({ data, dataset }) => {
-
-
   const options = {
     plugins: {
-      legend: true,
+      legend: false,
     },
     scales: {
       y: {

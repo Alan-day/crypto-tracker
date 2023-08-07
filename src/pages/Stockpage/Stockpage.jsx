@@ -11,27 +11,27 @@ const Stockpage = ({ handleGraph }) => {
   const [searchPhrase, setSearchPhrase] = useState("");
   const [dropdown, setDropdown] = useState("");
   const isStock = true;
-  const [newData, setNewData] = useState("");
+  const [newData, setNewData] = useState(stockyData);
   const [filteredOptions, setFilteredOptions] = useState([]);
   const [selectedOption, setSelectedOption] = useState("IBM");
 
-  const label = Object.entries(stockyData["Meta Data"])
+  const label = Object.entries(newData["Meta Data"])
     .map(([key, value]) => ({ key, value }))
     .filter((item) => item.key === "2. Symbol")
     .map((item) => ({
       Symbol: item.value,
-      stockyData,
+      newData,
     }))
     .slice(0, 2);
 
-  const timeSeriesArrayToday = Object.entries(stockyData["Time Series (Daily)"])
+  const timeSeriesArrayToday = Object.entries(newData["Time Series (Daily)"])
     .map(([date, values]) => ({
       date,
       ...values,
     }))
     .slice(0, 1);
 
-  const timeSeriesArray = Object.entries(stockyData["Time Series (Daily)"])
+  const timeSeriesArray = Object.entries(newData["Time Series (Daily)"])
     .map(([date, values]) => ({
       date,
       ...values,
@@ -76,7 +76,7 @@ const Stockpage = ({ handleGraph }) => {
     const url = `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${selectedOption}&apikey=${process.env.REACT_APP_API_KEY}`;
     const response = await fetch(url);
     const incomingData = await response.json();
-    setNewData(incomingData);
+    //setNewData(incomingData); // only used when got API access
   };
 
   useEffect(() => {
@@ -88,7 +88,8 @@ const Stockpage = ({ handleGraph }) => {
       );
       setFilteredOptions(symbolValues);
     }
-  }, [searchPhrase]);
+    newGraph();
+  }, [selectedOption, searchPhrase]);
 
   const dataset = {
     labels: data.labels,
@@ -107,17 +108,18 @@ const Stockpage = ({ handleGraph }) => {
 
   console.log(dropdown);
   return (
-    <div>
-      Stockpage
-      <Searchbar
-        handleInputChange={handleInputChange}
-        inputValue={searchPhrase}
-        handleOptionClick={handleOptionClick}
-        filteredOptions={filteredOptions}
-        handleGraph={handleGraph}
-      />
+    <div className="stockpage-container">
+      <div className=" stockpage-container__searchbar">
+        <Searchbar
+          handleInputChange={handleInputChange}
+          inputValue={searchPhrase}
+          handleOptionClick={handleOptionClick}
+          filteredOptions={filteredOptions}
+          handleGraph={handleGraph}
+        />
+      </div>
       <Sidebar sidebarData={timeSeriesArrayToday} isStock={isStock} />
-      <Graph data={data} dataset={dataset} />;
+      <Graph data={data} dataset={dataset} />
     </div>
   );
 };

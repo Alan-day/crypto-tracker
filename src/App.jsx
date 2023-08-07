@@ -10,6 +10,8 @@ import Navbar from "./Navbar/Navbar";
 import data from "./data.json";
 import crypto from "./cryptoData.json";
 import Searchbar from "./Searchbar/Searchbar";
+
+
 function App() {
   const [stockData, setStockData] = useState("");
   const [ibmInfo, setIbm] = useState("");
@@ -18,8 +20,9 @@ function App() {
   const [teslaInfo, setTesla] = useState("");
   const [microsoftInfo, setMicrosoft] = useState("");
   const [appleInfo, setApple] = useState("");
+  const [stockGraph, setStockGraph] = useState("");
 
-  console.log(crypto);
+
 
   const timeSeriesArrayToday = Object.entries(data["Time Series (Daily)"])
     .map(([date, values]) => ({
@@ -147,12 +150,6 @@ function App() {
   //   }))
   //   .slice(0, 1);
 
-  const handleUserInput = (event) => {
-
-
-
-
-  };
 
   return (
     <Router>
@@ -165,7 +162,7 @@ function App() {
 
         <Routes>
           <Route path="/crypto" element={<CryptoPage data={cryptoApiData} />} />
-          <Route path="/" element={<Stockpage data={apiData} />} />
+          <Route path="/" element={<Stockpage data={apiData} handleGraph={handleGraph}/>} />
         </Routes>
       </div>
     </Router>

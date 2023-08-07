@@ -7,10 +7,8 @@ import Stockpage from "./pages/Stockpage/Stockpage";
 
 import Navbar from "./Navbar/Navbar";
 
-import data from "./data.json";
 import crypto from "./cryptoData.json";
 import Searchbar from "./Searchbar/Searchbar";
-
 
 function App() {
   const [stockData, setStockData] = useState("");
@@ -21,36 +19,6 @@ function App() {
   const [microsoftInfo, setMicrosoft] = useState("");
   const [appleInfo, setApple] = useState("");
   const [stockGraph, setStockGraph] = useState("");
-
-
-
-  const timeSeriesArrayToday = Object.entries(data["Time Series (Daily)"])
-    .map(([date, values]) => ({
-      date,
-      ...values,
-    }))
-    .slice(0, 1);
-
-  const timeSeriesArray = Object.entries(data["Time Series (Daily)"])
-    .map(([date, values]) => ({
-      date,
-      ...values,
-    }))
-    .slice(0, 7);
-
-  const label = Object.entries(data["Meta Data"])
-    .map(([key, value]) => ({ key, value }))
-    .filter((item) => item.key === "2. Symbol")
-    .map((item) => ({
-      Symbol: item.value,
-      data,
-    }))
-    .slice(0, 2);
-
-  const labels = timeSeriesArray.map((dataPoint) => dataPoint.date);
-  const values = timeSeriesArray.map((dataPoint) => dataPoint["4. close"]);
-  const maxValue = timeSeriesArrayToday["2. high"];
-  const minValue = timeSeriesArrayToday["3. low"];
 
   const cryptoTimeSeriesArrayToday = Object.entries(
     crypto["Time Series (Digital Currency Daily)"]
@@ -77,17 +45,9 @@ function App() {
   const cryptoMaxValue = cryptoTimeSeriesArrayToday["2a. high (GBP)"];
   const cryptoMinValue = cryptoTimeSeriesArrayToday["3a. low (GBP)"];
 
-  const apiData = {
-    labels,
-    label,
-    values,
-    minValue,
-    maxValue,
-  };
-
   const cryptoApiData = {
     cryptoLabels,
-    label,
+    // label,
     cryptoValues,
     cryptoMinValue,
     cryptoMaxValue,
@@ -150,7 +110,6 @@ function App() {
   //   }))
   //   .slice(0, 1);
 
-
   return (
     <Router>
       <div className="App">
@@ -162,7 +121,7 @@ function App() {
 
         <Routes>
           <Route path="/crypto" element={<CryptoPage data={cryptoApiData} />} />
-          <Route path="/" element={<Stockpage data={apiData} handleGraph={handleGraph}/>} />
+          <Route path="/" element={<Stockpage  />} />
         </Routes>
       </div>
     </Router>

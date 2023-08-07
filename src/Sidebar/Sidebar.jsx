@@ -15,6 +15,11 @@ const Sidebar = ({ sidebarData, isStock }) => {
     <div className="sidebar-container">
     {isStock ? (
       sidebarData.map((dataPoint) => (
+
+
+
+
+        
         <div key={dataPoint.date}>
           <h1>{dataPoint.date}</h1>
           <h1> Open {dataPoint["1. open"]}</h1>

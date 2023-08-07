@@ -11,7 +11,7 @@ const Stockpage = ({ handleGraph }) => {
   const [searchPhrase, setSearchPhrase] = useState("");
   const [dropdown, setDropdown] = useState("");
   const isStock = true;
-  const [symbols, setSymbols] = useState([]);
+  const [newData, setNewData] = useState("");
   const [filteredOptions, setFilteredOptions] = useState([]);
   const [selectedOption, setSelectedOption] = useState("IBM");
 
@@ -43,7 +43,6 @@ const Stockpage = ({ handleGraph }) => {
   const maxValue = timeSeriesArrayToday["2. high"];
   const minValue = timeSeriesArrayToday["3. low"];
 
-
   const data = {
     labels,
     label,
@@ -51,11 +50,6 @@ const Stockpage = ({ handleGraph }) => {
     minValue,
     maxValue,
   };
-
-
-
-
-
 
   const handleInputChange = (event) => {
     const value = event.target.value.trim().toUpperCase();
@@ -67,6 +61,7 @@ const Stockpage = ({ handleGraph }) => {
 
   const handleOptionClick = (option) => {
     setSearchPhrase(option);
+    setSelectedOption(option);
     setFilteredOptions([]);
   };
 
@@ -75,6 +70,13 @@ const Stockpage = ({ handleGraph }) => {
     const response = await fetch(url);
     const dropdownData = await response.json();
     setDropdown(dropdownData);
+  };
+
+  const newGraph = async () => {
+    const url = `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${selectedOption}&apikey=${process.env.REACT_APP_API_KEY}`;
+    const response = await fetch(url);
+    const incomingData = await response.json();
+    setNewData(incomingData);
   };
 
   useEffect(() => {

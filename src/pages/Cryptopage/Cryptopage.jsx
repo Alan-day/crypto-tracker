@@ -35,7 +35,7 @@ const CryptoPage = ({ data }) => {
     <>
       <Graph data={data} dataset={dataset} />
       <Sidebar sidebarData={timeSeriesArrayToday} isStock={isStock} />
-      <div>CryptoPage</div>
+
     </>
   );
 };

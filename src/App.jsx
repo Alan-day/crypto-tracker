@@ -101,7 +101,6 @@ function App() {
     const stock = await response.json();
     setTesla(stock);
   };
-  useEffect(() => {}, []);
 
   // const ibm = Object.entries(ibmData["Time Series (Daily)"])
   //   .map(([date, values]) => ({
@@ -113,15 +112,14 @@ function App() {
   return (
     <Router>
       <div className="App">
+        <h1 className="header">_nology trader</h1>
         <Navbar />
-
-        <h1>_nology trader</h1>
-
-        <Pageswitch />
-
+        <div className="pageswitch">
+          <Pageswitch />
+        </div>
         <Routes>
           <Route path="/crypto" element={<CryptoPage data={cryptoApiData} />} />
-          <Route path="/" element={<Stockpage  />} />
+          <Route path="/" element={<Stockpage />} />
         </Routes>
       </div>
     </Router>

@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import Pageswitch from "./Pageswitch/Pageswitch";
 import CryptoPage from "./pages/Cryptopage/CryptoPage";
 import Stockpage from "./pages/Stockpage/Stockpage";
-import StockData from "./StockData";
+
 import Navbar from "./Navbar/Navbar";
 
 import data from "./data.json";

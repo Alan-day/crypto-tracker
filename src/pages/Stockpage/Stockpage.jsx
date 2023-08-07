@@ -14,6 +14,8 @@ const Stockpage = ({ data, handleGraph}) => {
   const [filteredOptions, setFilteredOptions] = useState([]);
   const [selectedOption, setSelectedOption] = useState("IBM");
 
+
+  
   const handleInputChange = (event) => {
     const value = event.target.value.trim().toUpperCase();
     setSearchPhrase(value);

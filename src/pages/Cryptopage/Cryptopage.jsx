@@ -1,11 +1,12 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import Graph from "../../Graph/Graph";
 import Sidebar from "../../Sidebar/Sidebar";
 import sidebarData from "./../../cryptoData.json";
-import crypto from "./../../cryptoData.json";
+import cryptoData from "./../../cryptoData.json";
 import Searchbar from "../../Searchbar/Searchbar";
 
 const CryptoPage = ({ handleGraph }) => {
+  const [newData, setNewData] = useState(cryptoData);
   const isStock = false;
   const [searchPhrase, setSearchPhrase] = useState("");
   const [dropdown, setDropdown] = useState("");
@@ -26,8 +27,22 @@ const CryptoPage = ({ handleGraph }) => {
     setFilteredOptions([]);
   };
 
+  const resultsData = async () => {
+    const url = `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${searchPhrase}&apikey=${process.env.REACT_APP_API_KEY}`;
+    const response = await fetch(url);
+    const dropdownData = await response.json();
+    setDropdown(dropdownData);
+  };
+
+  const newGraph = async () => {
+    const url = `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${selectedOption}&apikey=${process.env.REACT_APP_API_KEY}`;
+    const response = await fetch(url);
+    const incomingData = await response.json();
+    //setNewData(incomingData); // only used when got API access
+  };
+
   const cryptoTimeSeriesArrayToday = Object.entries(
-    crypto["Time Series (Digital Currency Daily)"]
+    cryptoData["Time Series (Digital Currency Daily)"]
   )
     .map(([date, values]) => ({
       date,
@@ -36,7 +51,7 @@ const CryptoPage = ({ handleGraph }) => {
     .slice(0, 1);
 
   const cryptoTimeSeriesArray = Object.entries(
-    crypto["Time Series (Digital Currency Daily)"]
+    cryptoData["Time Series (Digital Currency Daily)"]
   )
     .map(([date, values]) => ({
       date,
@@ -44,12 +59,12 @@ const CryptoPage = ({ handleGraph }) => {
     }))
     .slice(0, 7);
 
-  const cryptoLabel = Object.entries(crypto["Meta Data"])
+  const cryptoLabel = Object.entries(cryptoData["Meta Data"])
     .map(([key, value]) => ({ key, value }))
     .filter((item) => item.key === "3. Digital Currency Name")
     .map((item) => ({
       Symbol: item.value,
-      crypto,
+      cryptoData,
     }))
     .slice(0, 3);
 
@@ -69,6 +84,17 @@ const CryptoPage = ({ handleGraph }) => {
     cryptoMaxValue,
   };
 
+  useEffect(() => {
+    resultsData();
+
+    if (dropdown && dropdown.bestMatches && dropdown.bestMatches.length > 0) {
+      const symbolValues = dropdown.bestMatches.map(
+        (match) => match["1. symbol"]
+      );
+      setFilteredOptions(symbolValues);
+    }
+    newGraph();
+  }, [selectedOption, searchPhrase]);
   const dataset = {
     labels: cryptoApiData.cryptoLabels,
     datasets: [
@@ -91,8 +117,6 @@ const CryptoPage = ({ handleGraph }) => {
       ...values,
     }))
     .slice(0, 1);
-
-  console.log(timeSeriesArrayToday);
 
   return (
     <>

@@ -13,36 +13,55 @@ const Sidebar = ({ sidebarData, isStock }) => {
 
   return (
     <div className="sidebar-container">
-    {isStock ? (
-      sidebarData.map((dataPoint) => (
-
-
-
-
-        
-        <div key={dataPoint.date}>
-          <h1   >{dataPoint.date}</h1>
-          <h1 > Open {dataPoint["1. open"]}</h1>
-          <h1 className="sidebar-container--header" > High {dataPoint["2. high"]}</h1>
-          <h1 className="sidebar-container--header" > Low {dataPoint["3. low"]}</h1>
-          <h1 className="sidebar-container--header" >Close {dataPoint["4. close"]}</h1>
-          <h1 className="sidebar-container--header" >Volume {dataPoint["5. volume"]}</h1>
-        </div>
-      ))
-    ) : (
-      sidebarData.map((dataPoint) => (
-        <div key={dataPoint.date}>
-          <h1>{dataPoint.date}</h1>
-          <h1 className="sidebar-container--header" > Open {dataPoint["1a. open (GBP)"]}</h1>
-          <h1 className="sidebar-container--header" > High {dataPoint["2a. high (GBP)"]}</h1>
-          <h1 className="sidebar-container--header" > Low {dataPoint["3a. low (GBP)"]}</h1>
-          <h1 className="sidebar-container--header" >Close {dataPoint["4a. close (GBP)"]}</h1>
-          <h1 className="sidebar-container--header" >Volume {dataPoint["5. volume"]}</h1>
-        </div>
-      ))
-    )}
-  </div>
-);
+      {isStock
+        ? sidebarData.map((dataPoint) => (
+            <div key={dataPoint.date}>
+              <h1>{dataPoint.date}</h1>
+              <h1 className="sidebar-container--header">
+                {" "}
+                Open {dataPoint["1. open"]}
+              </h1>
+              <h1 className="sidebar-container--header">
+                {" "}
+                High {dataPoint["2. high"]}
+              </h1>
+              <h1 className="sidebar-container--header">
+                {" "}
+                Low {dataPoint["3. low"]}
+              </h1>
+              <h1 className="sidebar-container--header">
+                Close {dataPoint["4. close"]}
+              </h1>
+              <h1 className="sidebar-container--header">
+                Volume {dataPoint["5. volume"]}
+              </h1>
+            </div>
+          ))
+        : sidebarData.map((dataPoint) => (
+            <div key={dataPoint.date}>
+              <h1>{dataPoint.date}</h1>
+              <h1 className="sidebar-container--header">
+                {" "}
+                Open {dataPoint["1a. open (GBP)"]}
+              </h1>
+              <h1 className="sidebar-container--header">
+                {" "}
+                High {dataPoint["2a. high (GBP)"]}
+              </h1>
+              <h1 className="sidebar-container--header">
+                {" "}
+                Low {dataPoint["3a. low (GBP)"]}
+              </h1>
+              <h1 className="sidebar-container--header">
+                Close {dataPoint["4a. close (GBP)"]}
+              </h1>
+              <h1 className="sidebar-container--header">
+                Volume {dataPoint["5. volume"]}
+              </h1>
+            </div>
+          ))}
+    </div>
+  );
 };
 
 export default Sidebar;

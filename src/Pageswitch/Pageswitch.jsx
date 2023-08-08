@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Pageswitch = ({ handleStockChange, handleCryptoChange }) => {
+const Pageswitch = () => {
   return (
     <div className="pageswitch-container">
       <Link to="/crypto">

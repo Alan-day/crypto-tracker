@@ -6,6 +6,7 @@ import sidebarData from "./../../data.json";
 import Searchbar from "../../Searchbar/Searchbar";
 import datagram from "./../../dropdwon.json";
 import stockyData from "./../../data.json";
+import { elements } from "chart.js";
 
 const Stockpage = ({ handleGraph }) => {
   const [searchPhrase, setSearchPhrase] = useState("");
@@ -38,11 +39,13 @@ const Stockpage = ({ handleGraph }) => {
     }))
     .slice(0, 7);
 
+  const label_header = label.map((dataPoint) => dataPoint.Symbol);
   const labels = timeSeriesArray.map((dataPoint) => dataPoint.date);
   const values = timeSeriesArray.map((dataPoint) => dataPoint["4. close"]);
   const maxValue = timeSeriesArrayToday["2. high"];
   const minValue = timeSeriesArrayToday["3. low"];
 
+  console.log(label_header);
   const data = {
     labels,
     label,
@@ -119,6 +122,7 @@ const Stockpage = ({ handleGraph }) => {
         />
       </div>
       <Sidebar sidebarData={timeSeriesArrayToday} isStock={isStock} />
+      <h1>{label_header}</h1>
       <Graph data={data} dataset={dataset} />
     </div>
   );

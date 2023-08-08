@@ -1,16 +1,37 @@
 .navbar-container {
   position: fixed;
-  top: 70px;
+  top: 65px;
   left: 0;
   right: 0;
   font-family: "Roboto", sans-serif;
   box-shadow: 0 4px 8px -4px rgba(0, 0, 0, 0.3);
   margin-bottom: 100px;
+  background-color: white;
+  font-weight: 700;
+
+  &--1 {
+    background-color: #df2020;
+  }
+  &--2 {
+    background-color: blueviolet;
+  }
+  &--3 {
+    background-color: yellow;
+  }
+  &--4 {
+    background-color: green;
+  }
+  &--5 {
+    background-color: rgb(49, 49, 238);
+  }
+  &--6 {
+    background-color: orange;
+  }
 }
 
 .navbar-container .title {
   position: absolute;
-  background: #df2020;
+
   height: 100%;
   display: flex;
   align-items: center;
@@ -30,9 +51,9 @@
 .navbar-container ul li {
   white-space: nowrap;
   padding: 10px 24px;
-  color: #494949;
+  color: black;
   position: relative;
- 
+
   &--1 {
     background-color: #df2020;
   }
@@ -47,8 +68,6 @@
   top: 0;
   right: 0;
 }
-
-
 
 @keyframes scroll {
   from {

@@ -44,6 +44,16 @@ const CryptoPage = ({ handleGraph }) => {
     }))
     .slice(0, 7);
 
+  const cryptoLabel = Object.entries(crypto["Meta Data"])
+    .map(([key, value]) => ({ key, value }))
+    .filter((item) => item.key === "3. Digital Currency Name")
+    .map((item) => ({
+      Symbol: item.value,
+      crypto,
+    }))
+    .slice(0, 3);
+
+  const symbol = cryptoLabel.map((dataPoint) => dataPoint.Symbol);
   const cryptoLabels = cryptoTimeSeriesArray.map((dataPoint) => dataPoint.date);
   const cryptoValues = cryptoTimeSeriesArray.map(
     (dataPoint) => dataPoint["4a. close (GBP)"]
@@ -93,6 +103,7 @@ const CryptoPage = ({ handleGraph }) => {
         filteredOptions={filteredOptions}
         handleGraph={handleGraph}
       />
+      <h1>{symbol}</h1>
       <Graph data={cryptoApiData} dataset={dataset} />
 
       <Sidebar sidebarData={timeSeriesArrayToday} isStock={isStock} />
